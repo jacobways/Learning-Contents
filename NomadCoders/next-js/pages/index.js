@@ -1,24 +1,13 @@
 import { useState, useEffect } from "react"
 import Seo from "../components/Seo"
 
+export default function Home({results}) {
 
-
-export default function Home() {
-
-  const [movies, setMovies] = useState([])
-
-  useEffect(() => {
-    (async () => {
-      const { results } = await (
-        await fetch(`/api/movies`)).json();
-      setMovies(results)
-    })();
-  }, [])
   return (
     <div className="container">
       <Seo title="Home" />
-      {!movies && <h4>Loading...</h4>}
-      {movies?.map((movie) => (
+
+      {results?.map((movie) => (
         <div className="movie" key={movie.id}>
           <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
           <h4>{movie.original_title}</h4>
@@ -47,4 +36,19 @@ export default function Home() {
       `}</style>
     </div>
   );
+}
+
+// 함수명을 바꾸면 안 됨! 중요함
+export async function getServerSideProps() {
+  // 여기 코드는 서버 쪽에서만 작동함
+  // 여기 API Key를 숨길 수도 있음
+  const { results } = await (await fetch(`http://localhost:3000/api/movies`)).json();
+  return {
+
+    // results를 props로서 Home 컴포넌트에게 전달하게 됨
+    props: {
+      results,
+    },
+  }
+
 }
