@@ -3,9 +3,10 @@
   "compilerOptions": {
     "outDir": "build",  /* JS 파일이 생성될 디렉토리 지정  */
     "target": "ES6",  /* 어떤 버전의 JS로 컴파일 할지 지정 */
-    "lib": ["ES6", "DOM"],  
+    "lib": ["ES6"],  
     /* 어디서 TS 코드가 동작하는지 알려줌 (어떤 버전이 그 환경에서 동작하는지) - 선언 파일을 활용하여 적절한 자동완성 기능 지원 */
     "strict": true,
-    "allowJs": true, /* ts 파일 내에 js 파일 import 가능 여부 */
+    "esModuleInterop": true,
+    "module": "CommonJS"
   }
 }
